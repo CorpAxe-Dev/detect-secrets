@@ -87,7 +87,8 @@ class ParserBuilder(object):
             ._add_output_verified_false_flag()\
             ._add_fail_on_unaudited_flag()\
             ._add_suppress_unscannable_file_warnings()\
-            ._add_fail_on_file_unscannable()
+            ._add_fail_on_file_unscannable()\
+            ._add_no_version_check_flag()
 
         PluginOptions(self.parser).add_arguments()
 
@@ -178,6 +179,14 @@ class ParserBuilder(object):
 
     def _add_fail_on_file_unscannable(self):
         add_fail_on_file_unscannable(self.parser)
+        return self
+
+    def _add_no_version_check_flag(self):
+        self.parser.add_argument(
+            '--no-version-check',
+            action='store_true',
+            help='Skip update of local tool version in baseline when there are no new secrets.',
+        )
         return self
 
 
